@@ -1,0 +1,62 @@
+---
+tags:
+  - study
+  - blockchain
+  - infra
+  - frontend
+  - tempral
+  - vercel
+  - webassembly
+  - pwa
+  - uniswap
+  - nextjs
+title: "20230907"
+date: 2023-09-07
+blog: "true"
+---
+## Today Did
+
+### 시현
+블록체인과 de-fi에 대해 좀 더 조사할 예정
+de-fi는 decentralized finance, 금융 관련 프로덕트를 파는 단체라고 보면 됨
+스테이블 코인, 주식, 채권 등의 가치를 가지는 backed 코인, 파생상품 등의 복잡한 금융상품들을 만들어냄
+일단 타 de-fi에 비해 구조가 간단한 Tranchess부터 설명할 예정
+
+간단하게 UI가 구성 가능한 next.js의 plugin, "puck"에 대한 소개
+스마틴 참가하는 지인을 도와주며, next.js 호스팅 서비스 Vercel을 사용해 보았음(개인프로젝트에 좋아보임)
+https://github.com/measuredco/puck
+
+호스팅 서비스의 종류가 많은데 그 중 Temporal이라는 독특한 호스팅 서비스 업체가 있음
+Temporal은 worker 모델을 통해서 인프라를 구현하는데, 간단하게 설명하면 요청이오면 Queue에 쌓이고 각 worker가 이를 빼내서 처리하는 구조. 유실되는 요청이 없고, scale in-out에 강점이 있음 netflix등에서 사용.
+https://temporal.io/
+
+최근 프론트엔드로 WebAssembly 스택이 많이 사용되고 있는 듯 함.
+공부해봐도 좋을지도?
+https://rustwasm.github.io/
+https://docs.wasmtime.dev/examples-markdown.html
+https://www.youtube.com/watch?v=cbB3QEwWMlA
+
+아까 브라우저가 앱으로 바로 설치되는건 PWA 였다...
+Uniswap 등 많은 Web3 앱들은 PWA로 구현되어 있음
+https://www.youtube.com/watch?v=sFsRylCQblw
+https://yozm.wishket.com/magazine/detail/1969/
+https://web.dev/learn/pwa/
+https://github.com/pwa-builder/PWABuilder
+
+### 민서
+React의 세부 구현사항에 대해 좀 더 찾아볼 것
+예를 들어 useState등의 정확한 동작 방식 등
+
+## Next
+de-fi 서비스, 비트코인에 대해 공유
+프론트 엔드 관련 정보 공유
+## To Do
+1. de-fi Reasearch
+	1. Tranchess
+	2. RAFT
+	3. OlypusDAO
+	4. Synthetix
+	5. Uniswap
+	6. Balancer
+	7. MakerDAO
+2. Next.js, Nest.js 공부

@@ -1,5 +1,5 @@
 {
-  "name": "tailwind-nextjs-starter-blog",
+  "name": "my-blog",
   "version": "2.0.1",
   "private": true,
   "scripts": {
@@ -8,7 +8,8 @@
     "build": "cross-env INIT_CWD=$PWD next build && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
-    "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts"
+    "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts",
+    "blog": "cp -R ~/Documents/Obsidian\\ Vault/* ./data/blog/; for i in ./data/blog/*.md ./data/blog/*/*.md; do mv \"$i\" \"$i\"x; done; yarn dev"
   },
   "dependencies": {
     "@next/bundle-analyzer": "13.4.19",

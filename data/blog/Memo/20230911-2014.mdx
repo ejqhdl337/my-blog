@@ -1,0 +1,58 @@
+---
+tags:
+  - memo
+  - blockchain
+  - flashloan
+title: Flashloan에 대한 이해
+date: 2023-09-11
+blog: "false"
+---
+## Content
+### 플래시 론 이란?
+플래시 론은 EVM 스마트 컨트랙트의 특징을 활용한 무담보 대출 서비스 입니다.
+한개의 트랜잭션 내에 대출과 상환이 모두 일어나야 하고, 대출 상환이 불가능 할 시, 트랜잭션은 실패처리 됩니다
+
+플래시 론을 사용하기 위해서는 플래시 론 서비스를 제공하는 유동성 제공 업체가 정의한 대로 컨트랙을 구성해야 하며, 아래의 [Balancer Flashloan Code](https://docs.balancer.fi/reference/contracts/flash-loans.html#overview)에서 볼 수 있듯, User Contract(makeFalshLoan) -> Balancer Contract -> User Contract(receiveFlashLoan)과 같은 구조로 호출 됩니다.
+```solidity
+pragma solidity ^0.7.0;
+
+import "@balancer-labs/v2-interfaces/contracts/vault/IVault.sol";
+import "@balancer-labs/v2-interfaces/contracts/vault/IFlashLoanRecipient.sol";
+
+contract FlashLoanRecipient is IFlashLoanRecipient {
+    IVault private constant vault = "0xBA12222222228d8Ba445958a75a0704d566BF2C8";
+
+    function makeFlashLoan(
+        IERC20[] memory tokens,
+        uint256[] memory amounts,
+        bytes memory userData
+    ) external {
+      vault.flashLoan(this, tokens, amounts, userData);
+    }
+
+    function receiveFlashLoan(
+        IERC20[] memory tokens,
+        uint256[] memory amounts,
+        uint256[] memory feeAmounts,
+        bytes memory userData
+    ) external override {
+        require(msg.sender == vault);
+        // 플래시 론에서 수행할 로직
+        // Uniswap | Avve 대출 | 1inch 스왑 등
+    }
+}
+```
+플래시론을 활용하기 위해선 스마트 컨트랙트를 작성해야 하지만, [DeFi saver](https://app.defisaver.com),[Furucombo](https://furucombo.app/combo)등을 통해 UI로 접근할 수도 있습니다.
+### 플래시론의 활용
+플래시 론은 크게 2가지로 활용 될 수 있습니다
+#### 차익 거래
+차익거래는 가격변동이 일어났을 때 각 DEX별로 가격 차이가 있는 경우를 노려, 저렴한 곳에서 구매해 비싸게 되파는 것을 의미합니다. 플래시 론을 통해 큰 금액을 빌려, 작은 차이로도 큰 수익을 거둘 수 있습니다.
+#### 레버리지 거래
+플래시론은 담보없이 대출이 가능하기 때문에, 레버리지 포지션을 잡는데 이용할 수 있습니다.
+예를 들어, de-fi 대출 플랫폼에서 1ETH를 플래시 론으로 예치하고, 이를 담보로 70%를 대출 받아 상환한다면,
+30%만 가지고 있어도 1ETH 만큼의 포지션을 잡는 것이 가능합니다.
+
+## Reference
+https://www.sofi.com/learn/content/flash-loans/
+https://medium.com/aave/sneak-peek-at-flash-loans-f2b28a394d62
+https://docs.aave.com/faq/flash-loans
