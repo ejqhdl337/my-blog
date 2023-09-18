@@ -3,7 +3,7 @@ import { allBlogs } from 'contentlayer/generated'
 import Main from './Main'
 
 export default async function Page() {
-  const sortedPosts = sortPosts(allBlogs).filter((p)=>(!p.tags.includes("study")))
+  const sortedPosts = sortPosts(allBlogs).filter((p)=>{return !p.tags.includes("study")})
   const posts = allCoreContent(sortedPosts)
   return <Main posts={posts} />
 }
