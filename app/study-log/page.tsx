@@ -3,6 +3,6 @@ import { allBlogs } from 'contentlayer/generated'
 import Posts from './Posts'
 
 export default async function StudyLogPage() {
-  const posts = allCoreContent(sortPosts(allBlogs)).filter((p)=>p.tags.includes("study"))
+  const posts = allCoreContent(sortPosts(allBlogs)).filter((p) => p.tags.includes('study'))
   return <Posts posts={posts} />
 }
