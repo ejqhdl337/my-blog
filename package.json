@@ -11,8 +11,9 @@
     "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts",
     "copy-blog": "cp -R ~/Documents/Obsidian\\ Vault/* ./data/blog/",
     "rename-blog": "for i in ./data/blog/*.md ./data/blog/*/*.md; do mv \"$i\" \"$i\"x; done;",
+    "pre-process-resource": "mv ./data/blog/*/res/* ./public/static/resources",
     "pre-process-blog": "node md-pre-process.js",
-    "blog": "npm run copy-blog; npm run rename-blog; npm run pre-process-blog; yarn dev"
+    "blog": "npm run copy-blog; npm run rename-blog; npm run pre-process-resource; npm run pre-process-blog; yarn dev"
   },
   "dependencies": {
     "@next/bundle-analyzer": "13.4.19",

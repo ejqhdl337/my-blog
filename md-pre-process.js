@@ -17,27 +17,46 @@ function getAllFiles(dir){
     return files
 }
 
+function plantUMLPreProcess(file){
+    let fileContent = fs.readFileSync(file).toString()
+    const puml = fileContent.match(/```plantuml[^]*?```/g)
+    if(puml){
+        puml.map((p)=>{
+            // 1. ```plantuml + code + ``` => @startuml + code + @enduml
+            // 2. encode to url params
+            // 3. get url that is image from http://www.plantuml.com/plantuml/svg/
+            // 4. replace raw data to [image](url)
+            console.log(`detect plantuml pattern in ${file}: ${p}`)
+            fileContent = fileContent.replace(p,`![image](http://www.plantuml.com/plantuml/svg/${encoder.encode(p.replace("```plantuml","@startuml").replace("```","@enduml"))})`)
+        })
+        fs.writeFileSync(file, fileContent)
+    }else{
+        console.log(`plantuml pattern not found in ${file}`)
+    }
+}
+
+function blogResourcePreProcess(file){
+    let fileContent = fs.readFileSync(file).toString()
+    const res = fileContent.match(/\[[^\[\]]*?\]\([^\[\]]*?\/res\/[^\[\]]*?\)/g)
+    if(res){
+        res.map((i)=>{
+            console.log(`detect blog-resource pattern in ${file}: ${i}`)
+            fileContent = fileContent.replace(i, i.replace(/\([^]*?\/res/,"(/static/resources"))
+        })
+        fs.writeFileSync(file, fileContent)
+    }else{
+        console.log(`blog-resource pattern not found in ${file}`)
+    }
+}
+
 async function main(){
     const files = getAllFiles("./data/blog")
     console.log("detect files: ",files)
     files.map((f)=>{
-        const buf = fs.readFileSync(f)
-        let raw = buf.toString()
-        const puml = raw.match(/```plantuml[^]*?```/g)
-        if(puml){
-            puml.map((p)=>{
-                // 1. ```plantuml + code + ``` => @startuml + code + @enduml
-                // 2. encode to url params
-                // 3. get url that is image from http://www.plantuml.com/plantuml/svg/
-                // 4. replace raw data to [image](url)
-                console.log(`detect pattern in ${f}`)
-                raw = raw.replace(p,`![image](http://www.plantuml.com/plantuml/svg/${encoder.encode(p.replace("```plantuml","@startuml").replace("```","@enduml"))})`)
-            })
-            fs.writeFileSync(f,raw)
-        }else{
-            console.log(`pattern not found in ${f}`)
-        }
+        plantUMLPreProcess(f)
+        blogResourcePreProcess(f)
     })
+
 }
 
 main()
