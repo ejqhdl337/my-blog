@@ -17,6 +17,17 @@ function getAllFiles(dir){
     return files
 }
 
+function blogFalsePreProcess(file){
+    let fileContent = fs.readFileSync(file).toString()
+    const puml = fileContent.match(/blog: "false"/g)
+    if(puml){
+        console.log(`detect blog=false pattern in ${file}`)
+        fs.rmSync(file)
+    }else{
+        console.log(`blog=false pattern not found in ${file}`)
+    }
+}
+
 function plantUMLPreProcess(file){
     let fileContent = fs.readFileSync(file).toString()
     const puml = fileContent.match(/```plantuml[^]*?```/g)
@@ -50,6 +61,8 @@ function blogResourcePreProcess(file){
 }
 
 async function main(){
+    getAllFiles("./data/blog").map((f)=>blogFalsePreProcess(f))
+
     const files = getAllFiles("./data/blog")
     console.log("detect files: ",files)
     files.map((f)=>{
