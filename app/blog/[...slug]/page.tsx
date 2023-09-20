@@ -98,7 +98,6 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
       </div>
     )
   }
-  
 
   const prev = sortedCoreContents[postIndex + 1]
   const next = sortedCoreContents[postIndex - 1]
