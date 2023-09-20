@@ -16,12 +16,6 @@ blog: "false"
 채굴이 성공할 확률은 그 노드의 계산 능력이 전체 네트워크에서 얼마나 차지하느냐에 비례합니다.
 채굴을 완료하면, 트랜잭션의 집합체인 블록을 생성할 권한을 얻게됩니다.
 채굴이 되었다는 사실과 블록정보를 전파하고, 이것이 검증 될 시, 검증 된 노드는 이를 인정하고, 추가합니다.
-```plantuml
-노드->노드: 전파받은 트랜잭션을 블록에 저장
-노드->노드: 채굴완료
-노드->다른노드들: 블록정보+채굴완료 사실 전파
-다른노드들->다른노드들: 채굴 사실 검증
-다른노드들->다른노드들: 검증 완료 시 해당 블록 추가
-```
+![image](http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNhTkkFrv3cwTX3QIk7DWfQtFJslDyn-CxT1uMtNZjVpvhoPj_PDwumtSriKNk-OydhXt3VJ9m2LDRoPjnHJzyQMLrktl9dPydfn3qAoUydhfJiWlDUJbrZ1Z5amzVNcBTh8MXJUDArvqxq4wWWkD8rOJ89eXcbxjQdXpRAvH6Y3A5I0MTezH-7jr2slktT2NQRmPjkKLniQk1nIyrA0OGG0)
 
 ## Reference

@@ -8598,6 +8598,7 @@ __metadata:
     next: 13.4.19
     next-contentlayer: 0.3.4
     next-themes: ^0.2.1
+    plantuml-encoder: ^1.4.0
     pliny: 0.1.2
     postcss: ^8.4.24
     prettier: ^3.0.0
@@ -9259,6 +9260,13 @@ __metadata:
   version: 4.0.6
   resolution: "pirates@npm:4.0.6"
   checksum: 46a65fefaf19c6f57460388a5af9ab81e3d7fd0e7bc44ca59d753cb5c4d0df97c6c6e583674869762101836d68675f027d60f841c105d72734df9dfca97cbcc6
+  languageName: node
+  linkType: hard
+
+"plantuml-encoder@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "plantuml-encoder@npm:1.4.0"
+  checksum: d0ad77d960a8b092d8cfe9bdefc7a482ec073ecc686a92e482a8cbe35183d42433e79efd61fe24859ebd3219859d7fe022d49aaeec8827d46fde2ae4e7dba461
   languageName: node
   linkType: hard
 

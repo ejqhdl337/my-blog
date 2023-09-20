@@ -1,0 +1,33 @@
+---
+tags:
+  - memo
+  - gas
+  - unchecked
+  - solidity
+  - ethereum
+  - blockchain
+  - overflow
+  - underflow
+title: Solidity Unchecked
+date: 2023-09-20
+blog: "true"
+---
+## Content
+Solidity 0.8.0 이상 버전부터, 기본적으로 산술연산 시 overflow, underflow를 확인합니다.
+>Prior to Solidity 0.8.0, arithmetic operations would always wrap in case of under- or overflow
+>leading to widespread use of libraries that introduce additional checks.
+>Since Solidity 0.8.0, all arithmetic operations revert on over- and underflow by default, thus
+>making the use of these libraries unnecessary.
+>To obtain the previous behaviour, an unchecked block can be used:
+
+따라서 가스비를 절약하기 위해 이를 확인하지 않도록 하는 unchecked 구문을 쓸 수 있습니다.
+```solidity
+uint256 length = array.length;
+for(uint256 i = 0; i < length;) {
+  doSomething(array[i]);
+  unchecked{ ++i; }
+  // i++ 연산보다 ++i 연산이 가스 효율적임.
+}
+```
+## Reference
+https://docs.soliditylang.org/en/v0.8.0/control-structures.html#checked-or-unchecked-arithmetic

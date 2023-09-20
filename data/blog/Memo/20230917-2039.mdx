@@ -4,51 +4,24 @@ tags:
   - ethereum
   - transaction
   - blockchain
-title: 트랜잭션 기본
+title: 트랜잭션 기본1
 date: 2023-09-17
-blog: "false"
+blog: "true"
 ---
 ## Content
 ### 트랜잭션 이란?
 블록체인에서는 거래서를 트랜잭션이라고 부릅니다.
 트랜잭션은 아래의 구조를 가지고 있습니다.
-```plantuml
-블록: 트랜잭션1
-블록: 트랜잭션2
-블록: 트랜잭션3...
-트랜잭션: from 보내는 사람 지갑 주소
-트랜잭션: nonce 거래 번호(트랜잭션 재사용 방지)
-트랜잭션: to 받는 사람 지갑 주소
-트랜잭션: value 값
-트랜잭션: data 추가 데이터(smart contract에 사용)
-```
+![image](http://www.plantuml.com/plantuml/svg/ZP2x2i9044NxVCMKfWceNIf_PKbYbGV4rJe45P48AW63ZmMn445XrI0f_ABCv1zSi96GmlRCpBd3xGqu2_dGSpKiKZmUJAZc1OezYHjDidOZxJJIhc4OsYymeHy67k0pnpZ7UGeKNr4aGEUeb2kWqvkcIUt23tpBWV8kKMI0ZrcL5QtV3I1nLHhQNW3bHPdqce07Qh3xCst4tA5Aa-iQjnbdGA-qb17WGj8XhyQoDV1KKs05FW-PnMcpXEydkjPpV5jL-040)
 거래자는 트랜잭션을 제출할 때 private key로 싸인을 하여, 트랜잭션이 변경되지 않도록 합니다.
 ### Sign 이란?
 Sign은 트랜잭션 내용을 포함하여 생성 된 문자로, 트랜잭션 내용을 바꾸면 싸인의 정합성이 깨집니다.
-```plantuml
-Transaction: "from: 0xfa12...""
-Transaction: "nonce = 1"
-Transaction: "to = 0xbc212..."
-Transaction: "value = 1e18"
-Transaction: "data = 0x0"
-PrivateKey: "some 256 bits value"
-
-Transaction --> Sign
-PrivateKey --> Sign
-
-SignedTransaction: "0x12211232121fdsasdaf212312f..."
-Sign->SignedTransaction
-```
+![image](http://www.plantuml.com/plantuml/svg/PP312iCW38RlFaNmtgAMZL7Ow7sNmVO2QTKXj0fgI_Vsi-wmpbr2oCUN_AGB4NsSfv4yFDg0GpJEja2rTrCBRDN8HLtNb1RSEZieE0ClGNHfojP-41-nm0kES_OKFvLCOiGiCqfktYmOrLMz4WXkKY0EH-XD391NKBANeQekS3TFk_E-Cx9L9N-FiPKBmRbeKawkPS0WKQU-uKBdt9jKNVvKqYahqx_U)
 Transaction의 내용과 PrivateKey을 곱하고, modular연산을 통해 만들어 낸 Hash 값이라고 볼 수 있습니다.
 ### 트랜잭션의 거래
 트랜잭션은 공증을 위해 블록체인 네트워크로 제출되며, 임의의 노드를 통해 이를 제출합니다.
 Sign 값이 붙어있기 때문에 중개자가 변조할 수 없습니다.
-```plantuml
-거래자->거래자: 트랜잭션 생성
-거래자->거래자: private key로 트랜잭션 sign
-거래자->노드: 트랜잭션 제출
-노드->다른노드들: 트랜잭션 전파
-```
+![image](http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNgrSSFhUJFUp9kWQmTdMYcyxThnUjwSD_FMlccTeV2cUUwRbequL1OKPPObbgGgPATMlbuu1rLZSMPw7hAsrwqxNa-UWsxwWZbljitXWiW1rNGlURrq1uJtUl8I3CKjRtjwk1nIyrA0ZWS0)
 
 ## Reference
 1. https://ethereum.org/en/developers/docs/accounts/ - 이더리움 공식문서
