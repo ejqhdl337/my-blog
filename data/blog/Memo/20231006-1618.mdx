@@ -1,0 +1,34 @@
+---
+tags:
+  - memo
+  - tranchess
+  - blockchain
+  - ethereum
+  - solidity
+  - smartcontract
+title: Tranchess Contract 분석 후기
+date: 2023-10-06
+blog: "true"
+---
+## Content
+Tranchess Contract의 
+1. Reentrancy를 고려하지 않고 설계한 후 nonReenctrant modifier를 여기저기 붙인 느낌이 있다.
+	2. Reentrancy가 필요없는(address.call이 쓰이지 않은) 부분에도 붙여놨다.
+2. structure를 만드는데 필요없는 부분을 넣은 부분이 있다.
+	1. PrimaryMarket.sol의 queuedRedemptions에 underlying은 view function만을 위해 존재한다.
+	2. underlying previousPrefixSum을 통해 연산을 하여 알아낼 수 있다.
+	3. 연산 절약에도 도움이 되지 않는다면 중복되는 정보를 저장할 이유는 없어보인다.
+3. 변수 명명 규칙이 일정하지 않다. 
+	1. 컨트랙트의 전역 변수와 지역 변수를 직관적으로 구분할 수 없어 불편했다.
+4. 일정 주기로 실행시켜 주어야 하는 함수가 있다. 
+	1. 이런 구조는 지속적으로 가스비를 필요로 한다.
+	2. 이런 구조가 꼭 필요 했는지는 다각도로 분석 해볼 필요가 있다.
+	3. 애초에 이런 구조가 있도록 만드는 것을 지양하는 편이 좋을 것 같다.
+	4. rebalancing 기능으로 인해 어쩔 수 없이 사용하는 부분이 있다.
+5. 2번 이상 사용 되는 전역 변수의 경우 지역 변수로 할당하고 사용한다.
+6. 펀드에 붕 떠있는 자산이 있으면 누구나 가져갈 수 있는 부분에 대한 문제
+	1. 마치 approve->mint 구조기 때문에 괜찮은 것처럼 써있는데, 각 건들에 대해 유저 address로 관리하지 않기 때문에 문제가 있을 수 있다고 생각된다.
+7. rebalancing으로 인한 가스비 부담을 유저에게 전가하기 위해, historical Value, version등을 사용하는 패턴을 통해 과거 rebalancing 기록을 저장해야 한다.
+
+## Reference
+[Tranchess Solidity Code](https://github.com/tranchess/contract-core)

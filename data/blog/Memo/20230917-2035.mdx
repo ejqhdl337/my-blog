@@ -1,0 +1,27 @@
+---
+tags:
+  - memo
+  - eoa
+  - smartcontract
+  - ethereum
+  - blockchain
+title: EOA와 스마트 컨트랙트
+date: 2023-09-17
+blog: "true"
+---
+## Content
+### EOA란?
+일반적인 은행 계좌같은 기능을 하며, 이더리움을 송금하는 것이 가능합니다.
+EOA(Externally-Owned-Account)는 Private Key로 제어되는 지갑을 말합니다.
+Private Key를 통해 트랜잭션에 서명(sign)하여, 이더리움 내에서 송금 거래를 할 수 있습니다.
+EOA는 256bits의 임의의 값인 Private Key와 20bytes hash 문자열인 Acount Address 로 이루어져 있습니다.
+### Public Key와 Private Key
+Public Key는 Private Key를  [타원곡선 암호화 알고리즘](./20230921-1437)을 통해 암호화 하여, Public Key를 만들어내고 이를 Keccak256으로 Modular 시켜 Address Account를 만들어 냅니다.
+### Smart Contract란?
+스마트 컨트랙트는 쉽게 말해서 가상 계좌 라고 생각할 수 있습니다.
+사용자는 스마트 컨트랙트 소스코드를 작성해서 배포할 수 있으며, 배포 시 스마트 컨트랙트 주소를 얻게 됩니다.
+Web2서비스에서 가상 계좌로 돈을 보내면 서버가 그걸 확인하고 물품 구매 승인, 자리 예매 승인 등의 로직을 수행하듯 스마트 컨트랙트로 트랜잭션을 보내면, 스마트 컨트랙트 내부의 바이트 코드가 각 트랜잭션에 맞는 동작을 수행합니다. 또한 각 실행하는 코드에 따라 가스비를 지불하게 되는데, 이는 사용자가 부담합니다.
+### Smart Contract의 주소
+Smart Contract의 주소 형식은 일반 EOA 지갑 주소와 동일하며, 소스를 배포한 EOA 지갑 주소 + 해당 배포 트랜잭션의 nonce를 합쳐서 hashing한 값이 곧 Smart Contract의 주소가 됩니다.
+## Reference
+1. https://ethereum.org/en/developers/docs/accounts/ - 이더리움 공식문서

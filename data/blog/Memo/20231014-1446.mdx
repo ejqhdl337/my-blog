@@ -1,0 +1,41 @@
+---
+tags:
+  - memo
+  - ethereum
+  - validator
+  - mining
+  - blockchain
+title: How to setup ethereum validator
+date: 2023-10-14
+blog: "true"
+---
+## Content
+### What is Ethereum Validator
+Validator는 이더리움 네트워크의 최종성을 유지하기 위해 활동하는 검증인입니다.
+32ETH를 예치하고, Validator로 활동할 수 있으며, 일정 시간마다 블록에 대한 투표를 제출해야 합니다. 
+이를 통해 online, offline 상태를 확인하고, 이에 따라 보상과 패널티를 받게 됩니다.
+PoW가 특정시간을 목표로 난이도를 조절하는 것과 달리(비트코인은 10분) PoS인 이더리움은 고정 된 시간을 사용하며, slot(12 sec), epoch(32 slot, 6.4min)으로 정의됩니다.
+### How to be Ethereum Validator
+Validator가 되기 위해서는 출금 주소를 바탕으로 validator를 위한 keystore file, deposit data file을 생성하고, 해당 키로 32ETH를 이더리움 컨트랙트에 예치한 다음, private key를 Validator Node에 등록하고 실행하여 활동할 수 있다.
+#### Ethereum Clients
+Ethereum Protocol의 규격에 맞게 여러 언어로 개발 된 클라이언트가 있으며, 이중하나를 선택하여 Node를 실행할 수 있다. Node는 아래와 같이 Execition Node, Beacon Node, Validator로 나누어져 있다.
+![image](/static/resources/EthereumClientStack.png)
+이는 실제로 다른 3개의 포트에서 이 세가지 클라이언트가 동작함을 의미한다.
+##### Execution Node
+Execution Node는 트랜잭션을 전파하고 검증자로 선택 된 후, Beacon Node의 요청이 있을 시 트랜잭션 풀의 트랜잭션들을 Beacon Node로 넘겨주는 역활을 합니다.
+##### Beacon Node
+Beacon Node는 블록을 전파하고 받아들입니다.
+##### Validator
+Validator는 전달 받은 블록을 Excution Node로 보내서 다시 실행시켜 유효한지 확인합니다 그리고 블록의 서명이 일치하는지 확인합니다. 
+Validator는 랜덤으로 block proposer로서 선정되며, 블록을 만들어내고 네트워크에 전파할 의무가 생깁니다. 또한 모든 Validator는 동등하게 나누어져 매 epoch마다 1번씩은 Committees로 선정되며(모든 Validator가 1epoch마다 선정될 수 있도록 32 slot으로 분배된다는 의미) 블록을 검증하고 결과를 네트워크에 전파할 의무가 생깁니다.
+### How to Setup 
+1. 출금 지갑을 생성하고, 주소를 바탕으로 keystore file, deposit data file을 생성합니다.
+2. keystore file, deposit data file를 validator key에 넣고 validator client를 준비시킵니다.
+3. ethereum launchpad를 통해  keystore file, deposit data file을 첨부하여 32ETH를 예치합니다.
+4. validator를 유지시켜 스테이킹 보상을 얻습니다.
+
+## Reference
+https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-testnet-prater/step-2-configuring-node
+https://www.youtube.com/watch?v=tpkpW031RCI
+https://docs.ethstaker.cc/ethstaker-knowledge-base/
+https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/

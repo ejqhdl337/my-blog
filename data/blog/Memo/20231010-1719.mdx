@@ -1,0 +1,35 @@
+---
+tags:
+  - memo
+  - option
+  - strategy
+  - finance
+  - investment
+title: 옵션 투자 전략의 종류
+date: 2023-10-10
+blog: "true"
+---
+## Content
+### Cash Flow
+#### Covered Call
+현물을 매수하고 OTM 가격의 콜옵션을 지속적으로 파는 전략
+보통 한번에 현물의 크기만큼 매도 포지션을 잡고 매도한 콜옵션의 행사가격 이후로 이익이 제한된다
+가격이 떨어지더라도 프리미엄으로 약간의 헷징이 가능하며, 주식이 횡보할 시 가장 큰 수익을 얻음
+#### Cash Secured Put
+현금을 보유하고, OTM 가격의 풋옵션을 지속적으로 매도하는 전략
+보통 현물 만큼의 현금을 들고, 그 크기만큼 매도 포지션을 잡는다
+현물을 들고있지 않기 때문에 현물에 대해 매도포지션이며 현물이 하락하면 상대적 이득이다
+하지만 풋옵션 행사가격 이후로는 이득이 제한된다
+### Volatility
+![image](/static/resources/OptionsStrategy.png)
+#### Stradle
+동일만기, 동일 행사가격을 가진 콜,풋 옵션을 동시에 매수하거나 매도하여, 변동성에 투자하는 전략
+가격이 각 옵션의 프리미엄보다 크거나, 작게 움직여야 수익이 난다.
+#### Strap
+동일만기, 동일행사가격을 가진 콜, 풋 옵션을 비율을 다르게 매수하거나 매도하는 변동성 투자 전략
+비율을 다르게 구매하기 때문에 많이 구매한 쪽의 수익률 차트의 기울기가 좀더 가팔라 진다.
+#### Strangle
+동일만기, 다른 행사가격을 가진 콜, 풋 옵션을 동시에 매수하거나 매도하여, 변동성에 투자하는 전략
+가격대를 넓게 정해서 투자할 수 있지만, 그만큼 프리미엄이 달라지기 때문에 적절한 전략이 요구된다.
+## Reference
+- [investopedia](https://www.investopedia.com/trading/options-strategies/#:~:text=10%20Options%20Strategies%20to%20Know%201%201.%20Covered,8.%20Long%20Call%20Butterfly%20Spread%20...%20More%20items)

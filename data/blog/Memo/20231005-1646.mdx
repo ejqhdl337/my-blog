@@ -1,0 +1,57 @@
+---
+tags:
+  - memo
+  - solidity
+  - ethereum
+  - smartcontract
+  - security
+title: Smart Contract Security - Solidity Reentrancy
+date: 2023-10-05
+blog: "true"
+---
+## Content
+### Reentrancy
+스마트 컨트랙 코드를 작성할 때 Reentrancy 문제를 주의해야 한다.
+아래와 같은 ETH를 출금할 수 있는 기능이 있는 스마트 컨트랙트를 생각해보자.
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.6.0 <0.9.0;
+
+// THIS CONTRACT CONTAINS A BUG - DO NOT USE
+contract Fund {
+    /// @dev Mapping of ether shares of the contract.
+    mapping(address => uint) shares;
+    /// Withdraw your share.
+    function withdraw() public {
+        if (payable(msg.sender).send(shares[msg.sender]))
+            shares[msg.sender] = 0;
+    }
+}
+```
+EVM에서 모든 트랜잭션은 코드를 실행 시킬 수 있다는 것을 명심해야 한다.
+다른 스마트 컨트랙트 A를 통해 Fund 컨트랙트를 호출할 경우, send의 목적지는 A가 된다.
+이 경우, A에 fallback function을 선언하여, 다시 Fund 컨트랙트가 호출 되도록 할 수 있다.
+이 모든 것이 실행 되고 난 후에 shares = 0이 되기 때문에 Fund 컨트랙트의 모든 자산이 탈취당하게 된다.
+### How to solve
+아래와 같이 shares를 먼저 변경하여 이 문제를 해결할 수 있다.
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.6.0 <0.9.0;
+
+contract Fund {
+    /// @dev Mapping of ether shares of the contract.
+    mapping(address => uint) shares;
+    /// Withdraw your share.
+    function withdraw() public {
+        uint share = shares[msg.sender];
+        shares[msg.sender] = 0;
+        payable(msg.sender).transfer(share);
+    }
+}
+```
+일반적으로 적용할 수 있는 패턴으로는 Checks-Effects-Interactions 패턴이 있고,
+Openzeppelin의 ReentrancyGuard modifier를 사용하는 방법이 있다.
+## Reference
+1. https://blog.openzeppelin.com/reentrancy-after-istanbul
+3. https://docs.soliditylang.org/en/v0.8.21/security-considerations.html
